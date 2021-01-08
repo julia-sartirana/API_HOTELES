@@ -1,0 +1,37 @@
+Actualización de documentos en MongoDB
+Para actualizar documentos, basta con utilizar la operación update con dos parámetros. El primero permite especificar el filtro que determina qué documentos serán actualizados (pero ojo, que solo se actualizará el primer elemento que coincida y se detendrá la operación, comportamiento que se puede modificar como veremos más abajo). El segundo parámetro es la actualización que se va a realizar.
+
+Es importante tener en cuenta que la operación update actualizará el documento en su totalidad, para comprenderlo, prestad atención a lo que pasa con el atributo finished del siguiente documento cuando se actualiza su score.
+
+> db.scores.find({ _id : 1 })
+
+{ "_id" : 1, "username" : "findemor", "score" : 50, "finished" : true }
+> db.scores.update({ _id : 1 }, { _id : 1, username : “findemor”;, score : 60 })
+
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.scores.find({ _id : 1 })
+
+{ "_id" : 1, "username" : "findemor", "score" : 60 }
+Podemos evitar este efecto, como se muestra a continuación.
+
+Actualizar un atributo sin modificar el resto del elemento (si el atributo existe, se modifica, en otro caso se añade).
+
+> db.scores.find({ _id : 1 })
+
+{ "_id" : 1, "username" : "findemor", "score" : 60 }
+> db.scores.update({ _id : 1 }, { $set : { finished : true }})
+
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.scores.find({ _id : 1 })
+
+{ "_id" : 1, "username" : "findemor", "score" : 60, "finished" : true }
+Se pueden realizar otras acciones trabajando con atributos independientes.
+
+Incrementar el valor (si no existe, lo crea con el valor especificado)
+
+> db.scores.update({ _id : 1 }, { $inc : { score : 1 }})
+
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.scores.find({ _id : 1 })
+
+{ "_id" : 1, "username" : "findemor", "score" : 61, "finished" : true }
