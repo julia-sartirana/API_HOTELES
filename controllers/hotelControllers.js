@@ -4,7 +4,7 @@ const sort = require('../utils/sort');
 exports.getHotels = async (req, res) => {
   try {    
 
-    console.log(req.query)
+   /*  console.log(req.query) */
     const { query, page } = sort(req, 'hotels')
     
     const hotels = await query

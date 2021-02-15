@@ -1,4 +1,5 @@
 const Hotel = require('../models/hotels')
+const Review = require('../models/reviews')
 const User = require('../models/users')
 
 const sort = (req, collection) => {
@@ -8,6 +9,9 @@ const sort = (req, collection) => {
   }
   else if (collection === 'users') {
     searchCollection = User
+  }
+  else if (collection === 'reviews') {
+    searchCollection = Review
   }
   else {
     searchCollection = Hotel
@@ -33,7 +37,7 @@ const sort = (req, collection) => {
   else {
     query = query.sort('createdAt nombre')
   }
-  console.log(req.query)
+  /* console.log(req.query) */
   
 
  

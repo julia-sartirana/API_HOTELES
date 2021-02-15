@@ -20,7 +20,7 @@ exports.signup = async (req, res, next) => {
 exports.login = async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    return res.status(400).json({
+    return res.status(401).json({
       status: 'fail',
       data: 'Por favor envie una contraseña y un email'
     })
@@ -29,7 +29,7 @@ exports.login = async (req, res, next) => {
   const user = await User.findOne({ email }).select('+password')
 
   if(!user) {
-    return res.status(200).json({
+    return res.status(400).json({
       status: 'fail',
       data: 'Usuario no encontrado'
     })
@@ -66,7 +66,7 @@ exports.protectRoute = async (req, res, next) => {
   let token = '';
 
   if(!req.headers.authorization) {
-    res.sen(401).json({
+    res.send(401).json({
       status: 'fail',
       message: 'Debe enviar un token para acceder'
     });

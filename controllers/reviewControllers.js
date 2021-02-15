@@ -4,11 +4,11 @@ const sort = require('../utils/sort');
 exports.getReviews = async (req, res) => {
   try {    
 
-    console.log(req.query)
+    /* console.log(req.query) */
     const { query, page } = sort(req, 'reviews')
     
     const reviews = await query
-
+  
     res.status(201).json({
       status: 'success',
       data: {
