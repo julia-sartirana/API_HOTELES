@@ -5,8 +5,8 @@ const router = express.Router();
 
 router.get('/', getReviews);
 router.get('/:id', getReview);
-router.post('/', postReview);
-router.delete('/:id', deleteReview);
+router.post('/', protectRoute, onlyAdmin, postReview);
+router.delete('/:id', protectRoute, onlyAdmin, deleteReview);
 
 
 

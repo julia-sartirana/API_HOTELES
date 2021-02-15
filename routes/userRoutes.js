@@ -7,10 +7,10 @@ router.post('/signup', signup)
 router.post('/login', login)
 router.get('/', getUsers);
 router.get('/:id', getUser);
-router.post('/',  postUser);
-router.delete('/:id',  deleteUser);
-router.put('/:id',  putUser);
-router.patch('/:id', patchUser);
+router.post('/',  protectRoute, onlyAdmin, postUser);
+router.delete('/:id',  protectRoute, onlyAdmin, deleteUser);
+router.put('/:id',  protectRoute, onlyAdmin, putUser);
+router.patch('/:id', protectRoute, onlyAdmin, patchUser);
 
 
 module.exports = router;
